@@ -8,9 +8,12 @@ int main() {
     scanf("%f", &a);
     printf("Enter value of b: ");
     scanf("%f", &b);
-    float sum = a+b;
-    b = a;
-    a = sum - a;
+    a = a+b;
+    b = a-b;
+    a = a -b;
     printf("After swapping, value of a = %g",a );
     printf("\nAfter swapping, value of b = %g",b );
+    /**  float sum = a+b;
+    b = a;
+    a = sum - a; **/
 }

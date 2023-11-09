@@ -1,0 +1,112 @@
+01:56:25 **** Build of configuration Debug for project main ****
+make -j8 all 
+arm-none-eabi-gcc -mcpu=cortex-m3 -g3 -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f103c6tx.d" -MT"Startup/startup_stm32f103c6tx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f103c6tx.o" "../Startup/startup_stm32f103c6tx.s"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+../Src/main.c:36:2: error: unknown type name 'vuint32_t'
+  vuint32_t all_fields;
+  ^~~~~~~~~
+../Src/main.c:38:3: error: unknown type name 'vuint32_t'
+   vuint32_t reserved:13;
+   ^~~~~~~~~
+../Src/main.c:39:3: error: unknown type name 'vuint32_t'
+   vuint32_t p_13:1;
+   ^~~~~~~~~
+../Src/main.c: In function 'main':
+../Src/main.c:29:33: error: unknown type name 'unit32_t'
+ #define RCC_APB2ENR *((volatile unit32_t *) (RCC_BASE + 0x18))
+                                 ^
+../Src/main.c:48:4: note: in expansion of macro 'RCC_APB2ENR'
+    RCC_APB2ENR |= RCC_IOPAEN;
+    ^~~~~~~~~~~
+../Src/main.c:30:31: error: unknown type name 'unit32_t'
+ #define GPIOA_CRH *((volatile unit32_t *) (GPIOA_BASE + 0x04))
+                               ^
+../Src/main.c:49:4: note: in expansion of macro 'GPIOA_CRH'
+    GPIOA_CRH &= 0xFF0FFFFF;
+    ^~~~~~~~~
+../Src/main.c:30:31: error: unknown type name 'unit32_t'
+ #define GPIOA_CRH *((volatile unit32_t *) (GPIOA_BASE + 0x04))
+                               ^
+../Src/main.c:50:4: note: in expansion of macro 'GPIOA_CRH'
+    GPIOA_CRH |= 0x00200000;
+    ^~~~~~~~~
+../Src/main.c:52:16: error: 'volatile struct <anonymous>' has no member named 'P_13'; did you mean 'p_13'?
+     R_ODR->pin.P_13 = 1;
+                ^~~~
+                p_13
+../Src/main.c:54:16: error: 'volatile struct <anonymous>' has no member named 'P_13'; did you mean 'p_13'?
+     R_ODR->pin.P_13 = 0;
+                ^~~~
+                p_13
+make: *** [Src/subdir.mk:24: Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+01:56:38 **** Incremental Build of configuration Debug for project main ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c:36:2: error: unknown type name 'vuint32_t'
+  vuint32_t all_fields;
+  ^~~~~~~~~
+../Src/main.c:38:3: error: unknown type name 'vuint32_t'
+   vuint32_t reserved:13;
+   ^~~~~~~~~
+../Src/main.c:39:3: error: unknown type name 'vuint32_t'
+   vuint32_t P_13:1;
+   ^~~~~~~~~
+../Src/main.c: In function 'main':
+../Src/main.c:29:33: error: unknown type name 'unit32_t'
+ #define RCC_APB2ENR *((volatile unit32_t *) (RCC_BASE + 0x18))
+                                 ^
+../Src/main.c:48:4: note: in expansion of macro 'RCC_APB2ENR'
+    RCC_APB2ENR |= RCC_IOPAEN;
+    ^~~~~~~~~~~
+../Src/main.c:30:31: error: unknown type name 'unit32_t'
+ #define GPIOA_CRH *((volatile unit32_t *) (GPIOA_BASE + 0x04))
+                               ^
+../Src/main.c:49:4: note: in expansion of macro 'GPIOA_CRH'
+    GPIOA_CRH &= 0xFF0FFFFF;
+    ^~~~~~~~~
+../Src/main.c:30:31: error: unknown type name 'unit32_t'
+ #define GPIOA_CRH *((volatile unit32_t *) (GPIOA_BASE + 0x04))
+                               ^
+../Src/main.c:50:4: note: in expansion of macro 'GPIOA_CRH'
+    GPIOA_CRH |= 0x00200000;
+    ^~~~~~~~~
+make: *** [Src/subdir.mk:24: Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+01:58:43 **** Incremental Build of configuration Debug for project main ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "main.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Online courses\Embedded Systems Online Diploma\Unit 3\toggle\main\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="main.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: main.elf
+ 
+arm-none-eabi-size   main.elf 
+arm-none-eabi-objdump -h -S  main.elf  > "main.list"
+arm-none-eabi-objcopy  -O binary  main.elf  "main.bin"
+   text	   data	    bss	    dec	    hex	filename
+    672	     12	   1564	   2248	    8c8	main.elf
+Finished building: default.size.stdout
+ 
+Finished building: main.bin
+Finished building: main.list
+ 
+ 
+02:01:58 **** Incremental Build of configuration Debug for project main ****
+make -j8 all 
+arm-none-eabi-size   main.elf 
+arm-none-eabi-objcopy  -O ihex  main.elf  "main.hex"
+   text	   data	    bss	    dec	    hex	filename
+    672	     12	   1564	   2248	    8c8	main.elf
+Finished building: default.size.stdout
+ 
+Finished building: main.hex
+ 
+02:10:19 **** Incremental Build of configuration Debug for project main ****
+make -j8 all 
+arm-none-eabi-size   main.elf 
+   text	   data	    bss	    dec	    hex	filename
+    672	     12	   1564	   2248	    8c8	main.elf
+Finished building: default.size.stdout
+ 

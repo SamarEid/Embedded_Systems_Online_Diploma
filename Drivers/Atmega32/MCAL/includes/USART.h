@@ -89,7 +89,7 @@ enum USART_IRQ_Enable{
 	Enable_INT_TX_RX = (1<<TXCIE | 1<<RXCIE)
 };
 
-struct USART_Config{
+typedef struct {
 	enum USART_Synch_Mode Synch_Mode;
 	enum USART_Speed_Mode Speed_Mode;
 	enum USART_Receive Receive;
@@ -99,10 +99,10 @@ struct USART_Config{
 	enum USART_StopBit StopBit;
 	enum USART_IRQ_Enable IRQ_Enable;
 	void (*P_IRQ_CallBack)(void);
-	};
+	}USART_Config;
 
 //----------APIs------------
-void USART_Init(struct USART_Config Config);
+void USART_Init(USART_Config* Config);
 void USART_Transmit_Character(unsigned char data);
 unsigned char USART_Receive_Character(void);
 void USART_Transmit_String(char* data);

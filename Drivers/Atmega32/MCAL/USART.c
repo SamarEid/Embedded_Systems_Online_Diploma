@@ -11,7 +11,7 @@
 #include "avr/interrupt.h"
 
 void (*gp_CallBack)(void);
-struct USART_Config global_USART_Config ;
+USART_Config* global_USART_Config ;
 
 
 /**===================================================
@@ -22,19 +22,19 @@ struct USART_Config global_USART_Config ;
  *  Note -
  **/
 
-void USART_Init(struct USART_Config Config){
+void USART_Init(USART_Config* Config){
 	//1. Set baud rate
 	unsigned long UBRR;
 	global_USART_Config = Config ;
-	if(Config.Synch_Mode == USART_Asynch){
-		if(Config.Speed_Mode == USART_Normal_Speed)
+	if(Config->Synch_Mode == USART_Asynch){
+		if(Config->Speed_Mode == USART_Normal_Speed)
 			UBRR = (unsigned long)((USART_Fosc/(16*USART_Baud)) -1) ;
-		else if (Config.Speed_Mode == USART_Double_Speed){
+		else if (Config->Speed_Mode == USART_Double_Speed){
 			UBRR = (unsigned long)((USART_Fosc/(8*USART_Baud)) -1) ;
 			UCSRA |= (1<<U2X);
 		}
 	}
-	else if(Config.Synch_Mode == USART_Synch)
+	else if(Config->Synch_Mode == USART_Synch)
 			UBRR = (unsigned long)((USART_Fosc/(2*USART_Baud)) -1) ;
 
 	UBRRH = (unsigned char) (UBRR >> 8);
@@ -43,22 +43,22 @@ void USART_Init(struct USART_Config Config){
 	//2. Set frame format
 	UCSRC = (1<<URSEL); // Accessing UCSRC
 	// set parity bit - synch mode - stop bit - char size 
-	UCSRC |= Config.Parity_Mode | Config.Synch_Mode | Config.StopBit | Config.Char_Size ;
-	if (Config.Char_Size == USART_9_Bit_Char){
+	UCSRC |= Config->Parity_Mode | Config->Synch_Mode | Config->StopBit | Config->Char_Size ;
+	if (Config->Char_Size == USART_9_Bit_Char){
 		UCSRB |= 1<<UCSZ2;
 	}
 	// enable/disable interrupt
-	UCSRB |= Config.IRQ_Enable;
-	if(Config.IRQ_Enable == Disable_INT){
+	UCSRB |= Config->IRQ_Enable;
+	if(Config->IRQ_Enable == Disable_INT){
 		Clr_Bit(SREG,7);
 		gp_CallBack = (void*)0x0;
 	}
 	else{
 		Set_Bit(SREG,7);
-		gp_CallBack = Config.P_IRQ_CallBack;
+		gp_CallBack = Config->P_IRQ_CallBack;
 	}
 	//3. Enable transmitter or receiver
-	UCSRB |= Config.Transmit | Config.Receive;
+	UCSRB |= Config->Transmit | Config->Receive;
 }
 
 /**===================================================
@@ -71,7 +71,7 @@ void USART_Init(struct USART_Config Config){
 
 void USART_Transmit_Character(unsigned char data){
 	while(!(UCSRA & (1<<UDRE)));
-	if(global_USART_Config.Char_Size == USART_9_Bit_Char)
+	if(global_USART_Config->Char_Size == USART_9_Bit_Char)
 		UCSRB |= ((data>>8) & 1);
 	UDR = data;
 }

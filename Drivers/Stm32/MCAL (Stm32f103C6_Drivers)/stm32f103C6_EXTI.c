@@ -135,7 +135,7 @@ void Update_EXTI(EXTI_PinConfig_t* EXTI_Config){
 	// 4- Update IRQ Handling Call Back
 	GP_IRQ_CallBack[EXTI_Config->EXTI_PIN.EXTI_InputLineNumber] = EXTI_Config->P_IRQ_CallBack;
 	// 5- Enable/Disable IRQ EXTI & NVIC
-	if(EXTI_Config->IRQ_EN = EXTI_IRQ_Enalbe){
+	if(EXTI_Config->IRQ_EN == EXTI_IRQ_Enalbe){
 		EXTI->IMR |= (1<< EXTI_Config->EXTI_PIN.EXTI_InputLineNumber);
 		Enable_NVIC(EXTI_Config->EXTI_PIN.EXTI_InputLineNumber);
 	}

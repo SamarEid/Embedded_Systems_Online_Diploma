@@ -65,7 +65,13 @@ enum SPI_Data_Order{
 	SPI_LSB_First = 1,
 	SPI_MSB_First = 0
 };
-struct SPI_Config{
+
+enum SPI_INT_Enable{
+	SPI_INT_ON,
+	SPI_INT_OFF
+};
+
+typedef struct {
 	enum SPI_Mode Mode;
 	enum SPI_Prescalar Prescalar;
 	enum SPI_Enable Enable;
@@ -73,9 +79,11 @@ struct SPI_Config{
 	enum SPI_Double_Speed Double_Speed;
 	enum SPI_Sampling_Edge Sampling_Edge;
 	enum SPI_Data_Order Data_Order;
-	};
+	enum SPI_INT_Enable INT_Enable;
+	void (*P_IRQ_CallBack)(void);	
+	}SPI_Config;
 
-void SPI_Init(struct SPI_Config Config);
+void SPI_Init(SPI_Config* Config);
 unsigned char SPI_Transmit_Receive(unsigned char data);
 unsigned char SPI_Check_For_Collision(void);
 #endif /* SPI_H_ */

@@ -171,26 +171,26 @@ void MCAL_UART_GPIO_Pins(USART_typedef* USARTx){
 		PinCFG.GPIO_PinNumber = GPIOx_PIN_10;
 		PinCFG.GPIO_MODE = GPIO_MODE_OUTPUT_AF_PP;
 		PinCFG.GPIO_Output_Speed = GPIO_SPEED_10;
-		MCAL_GPIO_Init(GPIOA, &PinCFG);
+		MCAL_GPIO_Init(GPIOB, &PinCFG);
 
 		// PA11 RX
 		PinCFG.GPIO_PinNumber = GPIOx_PIN_11;
 		PinCFG.GPIO_MODE = GPIO_MODE_AF_INPUT;
-		MCAL_GPIO_Init(GPIOA, &PinCFG);
+		MCAL_GPIO_Init(GPIOB, &PinCFG);
 
 		// CTS & RTS
 		if(global_UART_Config->FlowControl == UART_FlowControl_CTS_Enable || global_UART_Config->FlowControl == UART_FlowControl_RTS_CTS){
 			//PA13 CTS
 			PinCFG.GPIO_PinNumber = GPIOx_PIN_13;
 			PinCFG.GPIO_MODE = GPIO_MODE_INPUT_FLO;
-			MCAL_GPIO_Init(GPIOA, &PinCFG);
+			MCAL_GPIO_Init(GPIOB, &PinCFG);
 		}
 		if(global_UART_Config->FlowControl == UART_FlowControl_RTS_Enable || global_UART_Config->FlowControl == UART_FlowControl_RTS_CTS){
 			//PA14 CTS
 			PinCFG.GPIO_PinNumber = GPIOx_PIN_14;
 			PinCFG.GPIO_MODE = GPIO_MODE_OUTPUT_AF_PP;
 			PinCFG.GPIO_Output_Speed = GPIO_SPEED_10;
-			MCAL_GPIO_Init(GPIOA, &PinCFG);
+			MCAL_GPIO_Init(GPIOB, &PinCFG);
 		}
 	}
 }

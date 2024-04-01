@@ -166,7 +166,7 @@ void MCAL_UART_GPIO_Pins(USART_typedef* USARTx){
 			MCAL_GPIO_Init(GPIOA, &PinCFG);
 		}
 	}
-	else if(USARTx == USART2){
+	else if(USARTx == USART3){
 		// PA10 TX
 		PinCFG.GPIO_PinNumber = GPIOx_PIN_10;
 		PinCFG.GPIO_MODE = GPIO_MODE_OUTPUT_AF_PP;

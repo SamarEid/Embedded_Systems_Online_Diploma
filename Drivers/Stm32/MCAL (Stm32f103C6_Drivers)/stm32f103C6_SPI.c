@@ -14,6 +14,8 @@
  * =======================================================================================
  */
 SPI_Config_t *global_SPI_Config[2] = { NULL, NULL };
+SPI_Config_t global_SPI_Config1;
+SPI_Config_t global_SPI_Config2;
 /*
  * =======================================================================================
  * 							Generic MACROS
@@ -49,10 +51,12 @@ void MCAL_SPI_Init(SPI_typedef *SPIx, SPI_Config_t *SPI_Config) {
 
 	// Enable Clock
 	if (SPIx == SPI1) {
-		global_SPI_Config[SPI1_Index] = SPI_Config;
+		global_SPI_Config1 = *SPI_Config;
+		global_SPI_Config[SPI1_Index] = &global_SPI_Config1;
 		RCC_SPI1_CLK_EN();
 	} else if (SPIx == SPI2) {
-		global_SPI_Config[SPI2_Index] = SPI_Config;
+		global_SPI_Config2 = *SPI_Config;
+		global_SPI_Config[SPI2_Index] = &global_SPI_Config2;
 		RCC_SPI2_CLK_EN();
 	}
 	// Enable SPI

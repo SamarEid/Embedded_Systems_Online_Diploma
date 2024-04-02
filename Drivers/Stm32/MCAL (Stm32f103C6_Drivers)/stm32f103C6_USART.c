@@ -15,7 +15,9 @@
  * =======================================================================================
  */
 UART_Config* global_UART_Config[3] = {NULL,NULL,NULL};
-
+UART_Config global_UART_Config1;
+UART_Config global_UART_Config2;
+UART_Config global_UART_Config3;
 /*
  * =======================================================================================
  * 							Generic MACROS
@@ -45,15 +47,18 @@ void MCAL_UART_Init(USART_typedef* USARTx, UART_Config* Config){
 	uint32_t pclk, BRR;
 	// Enable the clock for given USART peripheral
 	if(USARTx == USART1){
-		global_UART_Config[USART1_Index] = Config;
+		global_UART_Config1 = *Config;
+		global_UART_Config[USART1_Index] = &global_UART_Config1;
 		RCC_USART1_CLK_EN();
 	}
 	else if(USARTx == USART2){
-		global_UART_Config[USART2_Index] = Config;
+		global_UART_Config2 = *Config;
+		global_UART_Config[USART2_Index] = &global_UART_Config2;
 		RCC_USART2_CLK_EN();
 	}
 	else if(USARTx == USART3){
-		global_UART_Config[USART3_Index] = Config;
+		global_UART_Config3 = *Config;
+		global_UART_Config[USART3_Index] = &global_UART_Config3;
 		RCC_USART3_CLK_EN();
 	}
 

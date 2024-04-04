@@ -572,11 +572,4 @@ void I2C_ACK_Config(I2C_typedef* I2Cx, Funcional_State NewState){
 		I2Cx->CR1 &= ~(I2C_CR1_ACK);
 
 }
-/**===================================================
- *  @Fn - Slave_States
- *  @brief - Configures the states of the slave
- *  @param [in] - I2Cx: specify which I2C is being used
- *  @param [in] - State: The state of slave
- *  @retval - none
- *  Note - none
- **/
+

@@ -6,12 +6,33 @@
  */ 
 #include "LCD.h"
 
+
+void LCD_lcd_init(void){
+	_delay_ms(20);
+	DDR_LCD_Control |= (1<<EN_Switch | 1<<RW | 1<<RS_Switch);
+	LCD_Control &= ~(1<<EN_Switch | 1<<RW | 1<<RS_Switch);
+	DDR_LCD_Port = 0xFF;
+	_delay_ms(15);
+	LCD_clear_screen();
+	#ifdef EIGHT_BIT_MODE
+	LCD_send_command(LCD_FUNCTION_8BIT_2LINES);
+	#endif
+	#ifdef FOUR_BIT_MODE
+	LCD_send_command(0x02);
+	LCD_send_command(LCD_FUNCTION_4BIT_2LINES);
+	#endif
+	LCD_send_command(LCD_ENTRY_MODE);
+	LCD_send_command(LCD_BEGIN_AT_FIRST_RAW);
+	LCD_send_command(LCD_DISP_ON_CURSOR_BLINK);
+}
+
+
 void LCD_check_lcd_isbusy(void){
-	DDR_LCD_Port &= ~(0xff<<Data_shift);
+	DDR_LCD_Port &= ~(0xFF<<Data_shift);
 	LCD_Control |= (1<<RW);
 	LCD_Control &= ~(1<<RS_Switch);
 	LCD_lcd_kick();
-	DDR_LCD_Port = 0xFF;
+	DDR_LCD_Port |= 0xFF;
 	LCD_Control &= ~(1<<RW);
 }
 void LCD_lcd_kick(void){
@@ -41,7 +62,7 @@ void LCD_send_character(unsigned char character){
 	#ifdef EIGHT_BIT_MODE
 		LCD_check_lcd_isbusy();
 		LCD_Control |= 1<<RS_Switch;
-		LCD_Port = character<<Data_shift;
+		LCD_Port = (character << Data_shift);
 		LCD_Control |= 1<<RS_Switch;
 		LCD_Control &= ~(1<<RW);
 		LCD_lcd_kick();
@@ -51,7 +72,7 @@ void LCD_send_character(unsigned char character){
 		LCD_Control |= 1<<RS_Switch;
 		LCD_Control &= ~(1<<RW);
 		LCD_lcd_kick();
-		LCD_Port = (LCD_Port&0x0F)+(character<<4);
+		LCD_Port = (LCD_Port&0x0F)|(character<<4);
 		LCD_Control |= 1<<RS_Switch;
 		LCD_Control &= ~(1<<RW);
 		LCD_lcd_kick();
@@ -72,34 +93,18 @@ void LCD_send_string(char* string){
 		}
 	}
 }
-void LCD_lcd_init(void){
-	_delay_ms(20);
-	DDR_LCD_Control |= (1<<EN_Switch | 1<<RW | 1<<RS_Switch);
-	LCD_Control &= ~(1<<EN_Switch | 1<<RW | 1<<RS_Switch);
-	DDR_LCD_Port = 0xff;
-	_delay_ms(15);
-	LCD_clear_screen();
-	#ifdef EIGHT_BIT_MODE
-		LCD_send_command(LCD_FUNCTION_8BIT_2LINES);
-	#endif
-	#ifdef FOUR_BIT_MODE
-		LCD_send_command(LCD_FUNCTION_4BIT_2LINES);
-	#endif
-	LCD_send_command(LCD_ENTRY_MODE);
-	LCD_send_command(LCD_BEGIN_AT_FIRST_RAW);
-	LCD_send_command(LCD_DISP_ON_CURSOR_BLINK);
-}
+
 void LCD_clear_screen(){
 	LCD_send_command(LCD_CLEAR_SCREEN);
 }
 void LCD_gotoXY(unsigned char line, unsigned char position){
 	if(line == 0){
 		if(position <16 && position >= 0)
-			LCD_send_command(0x80+position);
+			LCD_send_command(LCD_BEGIN_AT_FIRST_RAW+position);
 	}
 	else if(line == 1){
 		if(position<16 && position>=0){
-			LCD_send_command(0xC0+position);
+			LCD_send_command(LCD_BEGIN_AT_SECOND_RAW+position);
 		}
 	}
 }
